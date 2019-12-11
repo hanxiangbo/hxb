@@ -13,9 +13,9 @@ package com.hxb.usercenter.controller;
 import com.hxb.usercenter.domain.entity.user.User;
 import com.hxb.usercenter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @create 2019/12/10
  * @since 1.0.0
  */
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
 

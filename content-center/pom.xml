@@ -6,9 +6,8 @@
         <groupId>com.hxb</groupId>
         <artifactId>spring-cloud-alibaba</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.hxb</groupId>
+    <groupId>com.hxb.content.center</groupId>
     <artifactId>content-center</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>content-center</name>
