@@ -4,5 +4,52 @@ spring:
     url: jdbc:mysql://localhost:3306/content_center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
     username: root
     password: 123456
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        #命名空间
+        #namespace: 636d19a1-ce17-4fa5-b849-b41477be0095
+        #集群
+        #cluster-name: NJ
+    sentinel:
+      transport:
+        port: 8719
+        #sentinel控制台
+        dashboard: localhost:8080
+
+  application:
+    name: content-center
 server:
   port: 8090
+
+user-center:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+ribbon:
+  eager-load:
+    enabled: true
+    clients: user-center
+
+logging:
+  level:
+    com.hxb.contentcenter.feignclinet.UserConterFeignClinet: debug
+feign:
+  client:
+    default-config:
+      loggerLevel: full
+  httpclient:
+    enabled: true
+    #feign最大连接数
+    max-connections: 50
+    #feign单个路劲的最大连接数
+    max-connections-per-route: 200
+  sentinel:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,4 +1,4 @@
-package com.hxb.contentcenter.domain.entity.notice;
+package com.hxb.contentcenter.domain.entity.content;
 
 import java.util.Date;
 import javax.persistence.*;
