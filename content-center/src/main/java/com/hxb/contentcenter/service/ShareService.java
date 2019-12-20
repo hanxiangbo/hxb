@@ -2,21 +2,20 @@ package com.hxb.contentcenter.service;
 
 import com.hxb.contentcenter.dao.share.ShareMapper;
 import com.hxb.contentcenter.domain.dto.content.ShareDTO;
+import com.hxb.contentcenter.domain.dto.messaging.UserAddBonusMsgDTO;
 import com.hxb.contentcenter.domain.dto.user.UserDTO;
 import com.hxb.contentcenter.domain.entity.content.Share;
 import com.hxb.contentcenter.feignclinet.UserConterFeignClinet;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -27,6 +26,8 @@ public class ShareService {
     private DiscoveryClient discoveryClient;
     @Autowired
     private UserConterFeignClinet userConterFeignClinet;
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
     //@Autowired
     //private RestTemplate restTemplate;
 
@@ -53,6 +54,12 @@ public class ShareService {
         //UserDTO userDTO = this.userCenterFeignClient.findById(userId);
         UserDTO userDTO = userConterFeignClinet.findById(userId);
         ShareDTO shareDTO = new ShareDTO();
+
+        rocketMQTemplate.convertAndSend("my-group", UserAddBonusMsgDTO.builder()
+                .userId(share.getUserId())
+                .bonus(50)
+                .build());
+
         // 消息的装配
         BeanUtils.copyProperties(share, shareDTO);
         shareDTO.setWxNickname(userDTO.getWxNickname());

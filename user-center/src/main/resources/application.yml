@@ -9,8 +9,25 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+      bindings:
+        input:
+          destination: content-topic
+          #rocketmq 必须设置
+          group: user-topic
+        my-input:
+          destination: content-my-topic
+          #rocketmq 必须设置
+          group: my-user-topic
   application:
     name: user-center
 
 server:
   port: 8070
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+

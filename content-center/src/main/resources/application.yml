@@ -18,6 +18,15 @@ spring:
         port: 8719
         #sentinel控制台
         dashboard: localhost:8080
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+      bindings:
+        output:
+          destination: content-topic
+        my-output:
+          destination: content-my-topic
 
   application:
     name: content-center
@@ -53,3 +62,11 @@ management:
     web:
       exposure:
         include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: my-group

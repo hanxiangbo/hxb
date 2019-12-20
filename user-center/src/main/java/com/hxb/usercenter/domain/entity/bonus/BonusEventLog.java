@@ -2,13 +2,13 @@ package com.hxb.usercenter.domain.entity.bonus;
 
 import java.util.Date;
 import javax.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
+import lombok.*;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "bonus_event_log")
 public class BonusEventLog {
     /**
