@@ -29,6 +29,10 @@ public class AddBonusListener implements RocketMQListener<UserAddBonusMsgDTO> {
     @Autowired
     private BonusEventLogMapper bonusEventLogMapper;
 
+    /**
+     * 收到消息时执行的业务
+     * @param userAddBonseDTO
+     */
     @Override
     public void onMessage(UserAddBonusMsgDTO userAddBonseDTO) {
         Integer userId = userAddBonseDTO.getUserId();

@@ -24,6 +24,7 @@ spring:
           name-server: 127.0.0.1:9876
       bindings:
         output:
+          #用来指定topic
           destination: content-topic
         my-output:
           destination: content-my-topic
@@ -65,8 +66,8 @@ management:
   endpoint:
     health:
       show-details: always
-
-rocketmq:
-  name-server: 127.0.0.1:9876
-  producer:
-    group: my-group
+#
+#rocketmq:
+#  name-server: 127.0.0.1:9876
+#  producer:
+#    group: my-group

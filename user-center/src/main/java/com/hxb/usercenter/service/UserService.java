@@ -11,9 +11,12 @@
 package com.hxb.usercenter.service;
 
 import com.hxb.usercenter.dao.user.UserMapper;
+import com.hxb.usercenter.domain.dto.user.UserLoginDTO;
 import com.hxb.usercenter.domain.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -33,4 +36,24 @@ public class UserService {
         return userMapper.selectByPrimaryKey(id);
     }
 
+    public User login(UserLoginDTO loginDTO, String openId) {
+        User user = userMapper.selectOne(
+                User.builder()
+                        .wxId(openId)
+                        .build()
+        );
+        if (user == null) {
+            user = User.builder()
+                    .wxId(openId)
+                    .bonus(300)
+                    .wxNickname(loginDTO.getWxNickname())
+                    .avatarUrl(loginDTO.getAvatarUrl())
+                    .roles("user")
+                    .createTime(new Date())
+                    .updateTime(new Date())
+                    .build();
+            userMapper.insertSelective(user);
+        }
+        return user;
+    }
 }
